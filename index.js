@@ -1,29 +1,10 @@
-const heapSort = (arr) => {
-  const heapify = (arr, n, i) => {
-    let largest = i;
-    const left = 2 * i + 1;
-    const right = 2 * i + 2;
-    if (left < n && arr[left] > arr[largest]) {
-      largest = left;
+function minimumTotal(triangle) {
+  const n = triangle.length;
+  const dp = new Array(n + 1).fill(0);
+  for (let i = n - 1; i >= 0; i--) {
+    for (let j = 0; j <= i; j++) {
+      dp[j] = triangle[i][j] + Math.min(dp[j], dp[j + 1]);
     }
-    if (right < n && arr[right] > arr[largest]) {
-      largest = right;
-    }
-    if (largest !== i) {
-      [arr[i], arr[largest]] = [arr[largest], arr[i]];
-      heapify(arr, n, largest);
-    }
-  };
-  const buildHeap = (arr) => {
-    const n = arr.length;
-    for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
-      heapify(arr, n, i);
-    }
-  };
-  buildHeap(arr);
-  for (let i = arr.length - 1; i > 0; i--) {
-    [arr[0], arr[i]] = [arr[i], arr[0]];
-    heapify(arr, i, 0);
   }
-  return arr;
-};
+  return dp[0];
+}
