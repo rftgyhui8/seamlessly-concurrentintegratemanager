@@ -1,13 +1,13 @@
-function canPartition(nums) {
-  const sum = nums.reduce((acc, val) => acc + val, 0);
-  if (sum % 2 !== 0) return false;
-  const target = sum / 2;
-  const dp = new Array(target + 1).fill(false);
-  dp[0] = true;
-  for (const num of nums) {
-    for (let i = target; i >= num; i--) {
-      dp[i] = dp[i] || dp[i - num];
-    }
+const stoogeSort = (arr, i = 0, j = arr.length - 1) => {
+  if (arr[i] > arr[j]) {
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
-  return dp[target];
-}
+  if (i + 1 >= j) {
+    return arr;
+  }
+  const t = Math.floor((j - i + 1) / 3);
+  stoogeSort(arr, i, j - t);
+  stoogeSort(arr, i + t, j);
+  stoogeSort(arr, i, j - t);
+  return arr;
+};
